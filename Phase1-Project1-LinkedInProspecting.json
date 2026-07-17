@@ -1,0 +1,162 @@
+{
+  "name": "Phase1-Project1-LinkedInProspecting",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "prospect-intake",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        -704,
+        -144
+      ],
+      "id": "9f6fe830-67c9-48e8-bb23-388dc4e2b9c8",
+      "name": "Webhook",
+      "webhookId": "ff5422b7-3e1d-44bb-a6ca-253713c7d16f"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.anthropic.com/v1/messages",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "anthropic-version",
+              "value": "2023-06-01"
+            },
+            {
+              "name": "content-type",
+              "value": "application/json"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={\n  \"model\": \"claude-sonnet-5\",\n  \"max_tokens\": 1024,\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"You are analyzing a prospect for outreach research.\\n\\n<prospect_info>\\n{{$json.body.prospect_text}}\\n</prospect_info>\\n\\n<instructions>\\n1. Determine likely role seniority (junior/mid/senior/exec)\\n2. Identify 1-3 likely pain points based on what they've said or their role\\n3. Suggest a specific outreach angle\\n4. Write one specific personalization hook referencing something concrete they said\\n</instructions>\\n\\nRespond with ONLY a JSON object matching this shape: {\\\"role_seniority\\\": string, \\\"likely_pain_points\\\": [array of strings], \\\"outreach_angle\\\": string, \\\"personalization_hook\\\": string}. No markdown, no backticks, no preamble.\"\n    }\n  ]\n}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        -480,
+        -144
+      ],
+      "id": "7db13ed7-461e-4d0e-b1f5-ccf64cefb27d",
+      "name": "HTTP Request",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "r0C14zXFELMOIUg9",
+          "name": "Anthropic API Key"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "const parsed = JSON.parse($input.item.json.content[0].text);\nreturn [{ json: parsed }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        -288,
+        -144
+      ],
+      "id": "e54a396b-aa34-4e20-b257-31fa874ff492",
+      "name": "Code in JavaScript"
+    },
+    {
+      "parameters": {
+        "includeOtherFields": true,
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        -80,
+        -144
+      ],
+      "id": "569d9f04-7fc6-450e-aeed-fab96739245b",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "respondWith": "allIncomingItems",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.5,
+      "position": [
+        128,
+        -144
+      ],
+      "id": "1c5089b9-b470-4a6a-a9e1-22f07519489e",
+      "name": "Respond to Webhook"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Code in JavaScript": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HTTP Request": {
+      "main": [
+        [
+          {
+            "node": "Code in JavaScript",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Edit Fields": {
+      "main": [
+        [
+          {
+            "node": "Respond to Webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "6d5d88d8-313b-4398-8e7b-57adb89a7263",
+  "meta": {
+    "instanceId": "a96ac31eecc9543dd350327d8cc595e44b7957899f06e51f1a0f021244438901"
+  },
+  "nodeGroups": [],
+  "id": "o26EjH8OWHV5bAUe",
+  "tags": []
+}
