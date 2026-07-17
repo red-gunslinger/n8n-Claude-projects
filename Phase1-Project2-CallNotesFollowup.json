@@ -1,10 +1,10 @@
 {
-  "name": "Phase1-Project1-LinkedInProspecting",
+  "name": "Phase1-Project2-CallNotesFollowup",
   "nodes": [
     {
       "parameters": {
         "httpMethod": "POST",
-        "path": "prospect-intake",
+        "path": "call-notes-intake",
         "responseMode": "responseNode",
         "options": {}
       },
@@ -14,9 +14,9 @@
         -704,
         -144
       ],
-      "id": "9f6fe830-67c9-48e8-bb23-388dc4e2b9c8",
+      "id": "f3687499-7c03-4677-b695-e2dd2c37f551",
       "name": "Webhook",
-      "webhookId": "ff5422b7-3e1d-44bb-a6ca-253713c7d16f"
+      "webhookId": "fe13fb41-a17c-4b29-bf39-56b676685fef"
     },
     {
       "parameters": {
@@ -39,7 +39,7 @@
         },
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "={\n  \"model\": \"claude-sonnet-5\",\n  \"max_tokens\": 1024,\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"You are analyzing a prospect for outreach research.\\n\\n<prospect_info>\\n{{$json.body.prospect_text}}\\n</prospect_info>\\n\\n<instructions>\\n1. Determine likely role seniority (junior/mid/senior/exec)\\n2. Identify 1-3 likely pain points based on what they've said or their role\\n3. Suggest a specific outreach angle\\n4. Write one specific personalization hook referencing something concrete they said\\n</instructions>\\n\\nRespond with ONLY a JSON object matching this shape: {\\\"role_seniority\\\": string, \\\"likely_pain_points\\\": [array of strings], \\\"outreach_angle\\\": string, \\\"personalization_hook\\\": string}. No markdown, no backticks, no preamble.\"\n    }\n  ]\n}",
+        "jsonBody": "={\n  \"model\": \"claude-sonnet-5\",\n  \"max_tokens\": 1024,\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"You are helping a consultant process rough call notes into a follow-up pack.\\n\\n<call_notes>\\n{{$json.body.call_notes}}\\n</call_notes>\\n\\n<instructions>\\n1. Identify 2-4 key takeaways from the call\\n2. Extract specific action items (who owns what, if mentioned)\\n3. Draft a short, professional follow-up email (3-5 sentences) summarizing the call and next steps\\n4. Suggest a reasonable timeframe for the next meeting/check-in\\n</instructions>\\n\\nRespond with ONLY a JSON object matching this shape: {\\\"key_takeaways\\\": [array of strings], \\\"action_items\\\": [array of strings], \\\"follow_up_email_draft\\\": string, \\\"next_meeting_suggestion\\\": string}. No markdown, no backticks, no preamble.\"\n    }\n  ]\n}",
         "options": {}
       },
       "type": "n8n-nodes-base.httpRequest",
@@ -48,7 +48,7 @@
         -480,
         -144
       ],
-      "id": "7db13ed7-461e-4d0e-b1f5-ccf64cefb27d",
+      "id": "24d13273-8f39-428a-8fb4-771589ac54ff",
       "name": "HTTP Request",
       "credentials": {
         "httpHeaderAuth": {
@@ -67,7 +67,7 @@
         -288,
         -144
       ],
-      "id": "e54a396b-aa34-4e20-b257-31fa874ff492",
+      "id": "43e5071a-091b-41fb-ab4b-7eac83d5c505",
       "name": "Code in JavaScript"
     },
     {
@@ -81,7 +81,7 @@
         -80,
         -144
       ],
-      "id": "569d9f04-7fc6-450e-aeed-fab96739245b",
+      "id": "eceb3c9c-aedc-4bb3-b7fe-9a82c470f630",
       "name": "Edit Fields"
     },
     {
@@ -95,7 +95,7 @@
         128,
         -144
       ],
-      "id": "1c5089b9-b470-4a6a-a9e1-22f07519489e",
+      "id": "6571e3e7-75f3-4eef-97c5-8847132ec905",
       "name": "Respond to Webhook"
     }
   ],
@@ -152,11 +152,11 @@
     "binaryMode": "separate",
     "availableInMCP": false
   },
-  "versionId": "ca060ce7-5192-40bb-9df1-da3d06ca341c",
+  "versionId": "dbf5b04f-024c-4fbb-9ed0-e28c73e96497",
   "meta": {
     "instanceId": "a96ac31eecc9543dd350327d8cc595e44b7957899f06e51f1a0f021244438901"
   },
   "nodeGroups": [],
-  "id": "o26EjH8OWHV5bAUe",
+  "id": "ukwSctmwEJVBxTKV",
   "tags": []
 }
