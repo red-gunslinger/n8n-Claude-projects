@@ -34,7 +34,7 @@
         },
         "sendBody": true,
         "specifyBody": "json",
-        "jsonBody": "{\n  \"model\": \"claude-sonnet-4-6\",\n  \"max_tokens\": 1024,\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"A prospect said: 'We're spending too much on cloud costs and need to cut our AWS bill by 30% this quarter.' Extract the following as JSON only, no other text: pain_point (string), urgency (low/medium/high), suggested_angle (string, one sentence). Respond with ONLY the JSON object, no markdown formatting, no backticks, no preamble.\"\n    }\n  ]\n}",
+        "jsonBody": "{\n  \"model\": \"claude-sonnet-5\",\n  \"max_tokens\": 1024,\n  \"messages\": [\n    {\n      \"role\": \"user\",\n      \"content\": \"A prospect said: 'We're spending too much on cloud costs and need to cut our AWS bill by 30% this quarter.' Extract the following as JSON only, no other text: pain_point (string), urgency (low/medium/high), suggested_angle (string, one sentence). Respond with ONLY the JSON object, no markdown formatting, no backticks, no preamble.\"\n    }\n  ]\n}",
         "options": {}
       },
       "type": "n8n-nodes-base.httpRequest",
