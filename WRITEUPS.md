@@ -1,4 +1,4 @@
-# Phase 1 Write-Ups
+# Write-Ups
 
 ## Project 1: LinkedIn Prospecting Research Assistant
 
@@ -44,6 +44,8 @@ Reused the same extended-thinking-block fix from Project 1 immediately, since th
 - API authentication is handled via N8N's Credential system (Header Auth), not environment variables — avoids exposing keys in exported workflow JSON, so workflows are safe to commit to GitHub.
 - All workflows follow a consistent naming convention (`Phase[N]-[Description].json`) tied to Jira epic KAN-9.
 - Both workflows ship with `"active": false` — they're prototypes tested via N8N's test webhook URLs, not deployed production automations.
+
+---
 
 ## Phase 3, Step 3: MCP integration (n8n as an MCP server for Claude Code)
 
