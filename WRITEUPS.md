@@ -78,3 +78,12 @@ Reused the same extended-thinking-block fix from Project 1 immediately, since th
 - Write JSON config files with `-Encoding ascii`; PowerShell's `utf8` adds a BOM that can break JSON parsing.
 - Slash commands (`/login`, `/model`) only work inside interactive Claude Code, not at the PowerShell prompt.
 - In this n8n version, a workflow must be **published** (and republished after edits) for the production MCP URL to work.
+
+### Stretch: n8n AI Agent as an MCP client
+
+Added an MCP Client Tool to the `agent-playground` agent, pointing at the same `mcp-tools` server. One tool definition, two clients (Claude Code and the n8n agent).
+
+- **Docker networking:** from inside the n8n container, `localhost` and `127.0.0.1` failed with "Could not connect... URL is invalid". `http://host.docker.internal:5678/mcp/audio-tools` worked.
+- **Avoid duplicate tool names:** the agent already had a Calculator, so the MCP Client uses "Tools to Include: Selected" and exposes only `fetch_audio_news`.
+- **Routing held up:** news question called the MCP tool; math answered correctly (42,481); the follow-up question was answered from Simple Memory with no MCP call.
+- **Token comparison for the same news task:** Claude Code headless (n8n server only) carried about 112K input tokens, mostly cached. The n8n agent used 8,346 tokens total, about 13x less. Takeaway for Project 4: use Claude Code where file and coding abilities are needed; use a lean agent or direct API call for narrow tasks.

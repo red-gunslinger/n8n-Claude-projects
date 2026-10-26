@@ -58,8 +58,8 @@
       "type": "@n8n/n8n-nodes-langchain.toolCalculator",
       "typeVersion": 1,
       "position": [
-        368,
-        208
+        496,
+        192
       ],
       "id": "8df0c2ff-0d56-4be0-a993-8b46ca2dde1e",
       "name": "Calculator"
@@ -74,6 +74,24 @@
       ],
       "id": "854ef675-f607-4a1a-8ac3-d99b5a73eb4a",
       "name": "Simple Memory"
+    },
+    {
+      "parameters": {
+        "endpointUrl": "http://host.docker.internal:5678/mcp/audio-tools",
+        "include": "selected",
+        "includeTools": [
+          "fetch_audio_news"
+        ],
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpClientTool",
+      "typeVersion": 1.4,
+      "position": [
+        272,
+        304
+      ],
+      "id": "cf5f0c3e-9838-4b2c-b602-e08fb45720f7",
+      "name": "MCP Client"
     }
   ],
   "pinData": {},
@@ -121,6 +139,17 @@
           }
         ]
       ]
+    },
+    "MCP Client": {
+      "ai_tool": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
   "active": false,
@@ -129,7 +158,7 @@
     "binaryMode": "separate",
     "availableInMCP": false
   },
-  "versionId": "0d766f2f-f169-42f5-84fa-18c4e35ca51a",
+  "versionId": "40788a97-0148-49c5-b2a3-28834e34a61d",
   "meta": {
     "templateCredsSetupCompleted": true,
     "instanceId": "a96ac31eecc9543dd350327d8cc595e44b7957899f06e51f1a0f021244438901"
