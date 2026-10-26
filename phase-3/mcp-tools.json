@@ -1,0 +1,86 @@
+{
+  "name": "mcp-tools",
+  "nodes": [
+    {
+      "parameters": {
+        "path": "audio-tools"
+      },
+      "type": "@n8n/n8n-nodes-langchain.mcpTrigger",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "c15567ad-d8da-4678-9ab8-77779656a465",
+      "name": "MCP Server Trigger",
+      "webhookId": "37740af5-463b-4a59-afb8-3b17aef86de9"
+    },
+    {
+      "parameters": {
+        "toolDescription": "Fetches the latest news headlines about audio AI, beamforming and microphone technology. Returns RSS XML (truncated to about 8000 characters) with titles, links and dates. Call once; the output is already short enough to read directly.",
+        "url": "     https://news.google.com/rss/search?q=beamforming+microphone+AI&hl=en-US&gl=US&ceid=US:en",
+        "options": {},
+        "optimizeResponse": true,
+        "responseType": "text",
+        "truncateResponse": true,
+        "maxLength": 8000
+      },
+      "type": "n8n-nodes-base.httpRequestTool",
+      "typeVersion": 4.4,
+      "position": [
+        48,
+        208
+      ],
+      "id": "8664d431-35b5-466a-8a1d-ea4c0da26811",
+      "name": "fetch_audio_news"
+    },
+    {
+      "parameters": {},
+      "type": "@n8n/n8n-nodes-langchain.toolCalculator",
+      "typeVersion": 1,
+      "position": [
+        256,
+        208
+      ],
+      "id": "9dbce6cb-068a-4365-9861-0e912c46c51a",
+      "name": "Calculator"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "fetch_audio_news": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Calculator": {
+      "ai_tool": [
+        [
+          {
+            "node": "MCP Server Trigger",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate"
+  },
+  "versionId": "43676ac4-3bae-43b6-9680-1e3c4ac7e400",
+  "meta": {
+    "instanceId": "a96ac31eecc9543dd350327d8cc595e44b7957899f06e51f1a0f021244438901"
+  },
+  "nodeGroups": [],
+  "id": "4iHbOrQCkaFnpkDs",
+  "tags": []
+}
